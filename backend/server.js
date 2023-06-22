@@ -31,8 +31,9 @@ app.post("/api/draftMessage", async (req, res) => {
     numWords = 200,
     messageType,
   } = req.body;
+  console.log(req.body);
   try {
-    if (wordCount > MAX_WORDS_LIMIT) {
+    if (numWords > MAX_WORDS_LIMIT) {
       return res
         .status(400)
         .json({ error: `Word count exceeds the limit of ${MAX_WORDS_LIMIT}` });
@@ -71,11 +72,7 @@ app.post("/api/draftMessage", async (req, res) => {
 
     res.json({ draftMessage });
   } catch (error) {
-    console.error(
-      "Error generating draft message:",
-      error.response.status,
-      error.response.statusText
-    );
+    console.error("Error generating draft message:", error);
     res
       .status(500)
       .json({ error: "An error occurred while generating the draft message" });
